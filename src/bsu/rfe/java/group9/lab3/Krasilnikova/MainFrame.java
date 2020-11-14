@@ -18,6 +18,7 @@ public class MainFrame extends JFrame
     private JMenuItem saveToTextMenuItem;
     private JMenuItem saveToGraphicsMenuItem;
     private JMenuItem searchValueMenuItem;
+    private JMenuItem showInformationMenuItem;
     // Поля ввода для считывания значений переменных
     private JTextField textFieldFrom;
     private JTextField textFieldTo;
@@ -27,6 +28,8 @@ public class MainFrame extends JFrame
     private GornerTableCellRenderer renderer = new GornerTableCellRenderer();
     // Модель данных с результатами вычислений
     private GornerTableModel data;
+
+
 
     public MainFrame(Double[] coefficients)
     {
@@ -47,6 +50,8 @@ public class MainFrame extends JFrame
         // Создать пункт меню "Таблица"
         JMenu tableMenu = new JMenu("Таблица");
         menuBar.add(tableMenu);
+        JMenu refMenu = new JMenu("Справка");
+        menuBar.add(refMenu);
         // Создать новое "действие" по сохранению в текстовый файл
         Action saveToTextAction = new AbstractAction("Сохранить в текстовый файл")
         {
@@ -79,9 +84,9 @@ public class MainFrame extends JFrame
                     fileChooser = new JFileChooser();
                     fileChooser.setCurrentDirectory(new File("."));
                 }
-                if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) ;
+                if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
                 // Если результат его показа успешный, сохранить данные в двоичный файл
-                saveToGraphicsFile(fileChooser.getSelectedFile());
+                    saveToGraphicsFile(fileChooser.getSelectedFile());
             }
         };
         saveToGraphicsMenuItem = fileMenu.add(saveToGraphicsAction);
@@ -102,6 +107,18 @@ public class MainFrame extends JFrame
         };
         searchValueMenuItem = tableMenu.add(searchValueAction);
         searchValueMenuItem.setEnabled(false);
+
+        Action showInformationAction = new AbstractAction("О программе")
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                JOptionPane.showMessageDialog(MainFrame.this, "Красильникова Мария \n9 группа",
+                        "Информация о студенте", JOptionPane.PLAIN_MESSAGE);
+            }
+        };
+        showInformationMenuItem = refMenu.add(showInformationAction);
+        showInformationMenuItem.setEnabled(true);
 
 
         JLabel labelForFrom = new JLabel("X изменяется на интервале от:");
@@ -168,9 +185,8 @@ public class MainFrame extends JFrame
                 } catch (NumberFormatException ex)
                 {
         // В случае ошибки преобразования чисел показать сообщение об ошибке
-                    JOptionPane.showMessageDialog(MainFrame.this,
-                            "Ошибка в формате записи числа с плавающей точкой", "Ошибочный формат числа",
-                            JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(MainFrame.this, "Ошибка в формате записи числа с плавающей точкой",
+                            "Ошибочный формат числа", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
