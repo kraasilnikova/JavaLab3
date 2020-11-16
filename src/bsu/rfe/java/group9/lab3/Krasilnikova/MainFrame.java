@@ -29,8 +29,6 @@ public class MainFrame extends JFrame
     // Модель данных с результатами вычислений
     private GornerTableModel data;
 
-
-
     public MainFrame(Double[] coefficients)
     {
         // Обязательный вызов конструктора предка

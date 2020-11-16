@@ -11,6 +11,7 @@ public class GornerTableCellRenderer implements TableCellRenderer
     private JLabel label = new JLabel();
     private String needle = null;
     private DecimalFormat formatter = (DecimalFormat)NumberFormat.getInstance();
+
     public GornerTableCellRenderer()
     {
         // Показывать только 5 знаков после запятой
