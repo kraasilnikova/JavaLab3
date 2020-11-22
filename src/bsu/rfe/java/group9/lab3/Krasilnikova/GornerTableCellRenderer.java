@@ -32,9 +32,30 @@ public class GornerTableCellRenderer implements TableCellRenderer
         String formattedDouble = formatter.format(value);
         // Установить текст надписи равным строковому представлению числа
         label.setText(formattedDouble);
-        if (col==1 && needle!=null && needle.equals(formattedDouble))
-            panel.setBackground(Color.RED);
-        else panel.setBackground(Color.WHITE);
+        
+        int indexDot = formattedDouble.indexOf(".");
+        int count = 0;
+        if (indexDot != -1)
+        {
+            for (int i = indexDot + 1; i < formattedDouble.length(); i++)
+            {
+                char letter = formattedDouble.charAt(i);
+                if (letter == '1' || letter == '3' || letter == '5')
+                    count += 1;
+            }
+        }
+        if (count == formattedDouble.length() - formattedDouble.indexOf(".") - 1)
+        {
+            if (col==1 && needle!=null && needle.equals(formattedDouble))
+                panel.setBackground(Color.RED);
+            else panel.setBackground(Color.PINK);
+        }
+        else
+        {
+            if (col==1 && needle!=null && needle.equals(formattedDouble))
+                panel.setBackground(Color.RED);
+            else panel.setBackground(Color.WHITE);
+        }
         return panel;
     }
     public void setNeedle(String needle)
